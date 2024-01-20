@@ -5,13 +5,13 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: 'airbnb-base',
+  extends: "airbnb-base",
   overrides: [
     {
       env: {
         node: true,
       },
-      files: ['.eslintrc.{js,cjs}'],
+      files: [".eslintrc.{js,cjs}"],
       parserOptions: {
         sourceType: "script",
       },
@@ -21,10 +21,11 @@ module.exports = {
     ecmaVersion: "latest",
   },
   rules: {
-    'no-param-reassing': 'off',
-    'linebreak-style': 0,
-    camecase: 'off',
-    "no-unused-vars": ['error', { argsIgnorePattern: 'next' }],
-    'max-len': ['error', { code: 80 }],
+    "no-param-reassing": "off",
+    "linebreak-style": 0,
+    camecase: "off",
+    "no-unused-vars": ["error", { argsIgnorePattern: "next" }],
+    "max-len": ["error", { code: 80 }],
+    quotes: ["double"],
   },
 };
