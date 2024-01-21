@@ -21,6 +21,10 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       avatar: {
         type: Sequelize.STRING,
       },
@@ -30,9 +34,10 @@ module.exports = {
       gender: {
         type: Sequelize.STRING,
       },
+
       password_hash: {
         type: Sequelize.STRING,
-        allowNull: false,
+        // allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
