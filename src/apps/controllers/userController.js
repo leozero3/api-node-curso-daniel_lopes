@@ -10,19 +10,6 @@ class UserController {
       if (verifyUser) {
         return res.status(400).json({ message: "Usuario ja Existe" });
       }
-      // const { name, user_name, email, avatar, bio, gender, password_hash } =
-      //   req.body;
-
-      // // Certifique-se de fornecer o valor para user_name
-      // const user = await Users.create({
-      //   name,
-      //   user_name,
-      //   email,
-      //   avatar,
-      //   bio,
-      //   gender,
-      //   password_hash,
-      // });
 
       const user = await Users.create(req.body);
       if (!user) {
