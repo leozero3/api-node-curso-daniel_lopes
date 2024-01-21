@@ -10,21 +10,25 @@ class UserController {
       if (verifyUser) {
         return res.status(400).json({ message: "Usuario ja Existe" });
       }
-      const { name, user_name, email, avatar, bio, gender, password_hash } =
-        req.body;
+      // const { name, user_name, email, avatar, bio, gender, password_hash } =
+      //   req.body;
 
-      // Certifique-se de fornecer o valor para user_name
-      const user = await Users.create({
-        name,
-        user_name,
-        email,
-        avatar,
-        bio,
-        gender,
-        password_hash,
-      });
+      // // Certifique-se de fornecer o valor para user_name
+      // const user = await Users.create({
+      //   name,
+      //   user_name,
+      //   email,
+      //   avatar,
+      //   bio,
+      //   gender,
+      //   password_hash,
+      // });
 
-      res.send({ user });
+      const user = await Users.create(req.body);
+      if (!user) {
+        res.status(400).send({ error: "Erro ao criar usuario" });
+      }
+      return res.send({ user });
     } catch (error) {
       console.error(error);
       res.status(500).send({ error: "Erro interno do servidor" });
