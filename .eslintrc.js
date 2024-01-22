@@ -26,6 +26,7 @@ module.exports = {
     camecase: "off",
     "no-unused-vars": ["error", { argsIgnorePattern: "next" }],
     "max-len": ["error", { code: 80 }],
-    quotes: ["double"],
+    // quotes: ["double"],
+    "max-len": ["erro", { code: 80 }],
   },
 };

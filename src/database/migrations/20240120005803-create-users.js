@@ -22,7 +22,7 @@ module.exports = {
         unique: true,
       },
       password: {
-        type: Sequelize.STRING,
+        type: Sequelize.VIRTUAL,
         allowNull: false,
       },
       avatar: {
