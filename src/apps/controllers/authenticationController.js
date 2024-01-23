@@ -26,7 +26,16 @@ class AuthenticationController {
     if (!(await user.checkPassword(password))) {
       return res.status(401).json({ error: "senha errada!" });
     }
-    return res.status(200).json({ user: user });
+
+    const { id, user_name: userName } = user;
+
+    const token = jwt.sign({}, process.env.HASH_BCRYPT, {
+      expiresIn: "7d",
+    });
+
+    return res
+      .status(200)
+      .json({ user: { id, user_name: userName }, token: token });
   }
 }
 
