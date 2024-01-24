@@ -9,11 +9,11 @@ class AuthenticationController {
   async authenticate(req, res) {
     const { email, user_name, password } = req.body;
 
-    let whereClause = {};
+    const whereClause = {};
     if (email) {
-      whereClause = { email };
+      whereClause.email = email;
     } else if (user_name) {
-      whereClause = { user_name };
+      whereClause.user_name = user_name;
     } else {
       return res.status(401).json({ error: "precisa de email ou senha!" });
     }
@@ -21,9 +21,11 @@ class AuthenticationController {
     const user = await Users.findOne({
       where: whereClause,
     });
+
     if (!user) {
       return res.status(401).json({ error: "user not found!" });
     }
+
     if (!(await user.checkPassword(password))) {
       return res.status(401).json({ error: "senha errada!" });
     }
@@ -33,8 +35,9 @@ class AuthenticationController {
     const { iv, content } = encrypt(id);
 
     const newId = `${iv}:${content}`;
-    const token = jwt.sign({ newId }, process.env.HASH_BCRYPT, {
-      expiresIn: "7d",
+
+    const token = jwt.sign({ useId: newId }, process.env.HASH_BCRYPT, {
+      expiresIn: process.env.EXPIRE_IN,
     });
 
     return res
