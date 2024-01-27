@@ -13,8 +13,7 @@ const verifyJwt = async (req, res, next) => {
   try {
     console.log("Middleware ok.");
     const { userId } = await decryptedToken(authHeader);
-    const dec = (req.userId = parseInt(decrypt(userId)));
-    console.log(dec);
+    req.userId = parseInt(decrypt(userId));
     return next();
   } catch (error) {
     console.log("erro authentication ");

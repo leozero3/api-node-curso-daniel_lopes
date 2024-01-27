@@ -7,6 +7,7 @@ const UserSchema = require("./schema/create.user.schema.json");
 
 const AuthenticatorController = require("./apps/controllers/authenticationController");
 const AuthSchema = require("./schema/auth.schema.json");
+const userController = require("./apps/controllers/userController");
 
 const routes = new Router();
 
@@ -18,8 +19,9 @@ routes.post(
   AuthenticatorController.authenticate
 );
 
-routes.use(AuthenticationMiddleware);
+routes.put("/users", userController.update);
 
 routes.get("/health", (req, res) => res.send({ message: "conectado!!" }));
+routes.use(AuthenticationMiddleware);
 
 module.exports = routes;
