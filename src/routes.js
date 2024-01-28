@@ -19,9 +19,10 @@ routes.post(
   AuthenticatorController.authenticate
 );
 
+routes.use(AuthenticationMiddleware);
 routes.put("/users", userController.update);
+routes.delete("/users", userController.delete);
 
 routes.get("/health", (req, res) => res.send({ message: "conectado!!" }));
-routes.use(AuthenticationMiddleware);
 
 module.exports = routes;

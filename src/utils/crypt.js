@@ -19,6 +19,10 @@ const encrypt = (text) => {
 };
 
 const decrypt = (hash) => {
+  if (!hash || typeof hash !== "string" || !hash.includes(":")) {
+    throw new Error("Invalid hash for decryption");
+  }
+
   const [newIv, text] = hash.split(":");
 
   const decipher = crypto.createDecipheriv(
