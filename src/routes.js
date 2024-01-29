@@ -10,6 +10,9 @@ const AuthenticatorController = require("./apps/controllers/authenticationContro
 const AuthSchema = require("./schema/auth.schema.json");
 const userController = require("./apps/controllers/userController");
 
+const PostController = require("./apps/controllers/PostController");
+const PostSchema = require("./schema/post.schema.json");
+
 const FileController = require("./apps/controllers/FileController");
 
 const routes = new Router();
@@ -31,5 +34,6 @@ routes.get("/user-profile", UserController.userProfile, (req, res) =>
   res.send({ message: "conectado!!" })
 );
 routes.post("/upload", upload.single("image"), FileController.upload);
+routes.post("/new-post", schemaValidator(PostSchema), PostController.create);
 
 module.exports = routes;
