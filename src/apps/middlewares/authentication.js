@@ -9,8 +9,6 @@ const verifyJwt = async (req, res, next) => {
   }
 
   try {
-    console.log("authHeader:", authHeader);
-
     const { userId } = await decryptedToken(authHeader);
     console.log("userId:", userId);
 
