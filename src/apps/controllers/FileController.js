@@ -1,14 +1,19 @@
+require("dotenv").config();
 const fsp = require("fs/promises");
 const B2 = require("backblaze-b2");
 
+const { APPLICATION_KEY_ID, APPLICATION_KEY, BUCKET_ID, BASE_URL } =
+  process.env;
+
 const b2 = new B2({
-  applicationKeyId: "822c090f8a9f", // or accountId: 'accountId'
-  applicationKey: "0040fe9111c6898f4c5b3ba71ddbc1bb0efc94cc6a", // or masterApplicationKey
+  applicationKeyId: APPLICATION_KEY_ID, // or accountId: 'accountId'
+  applicationKey: APPLICATION_KEY, // or masterApplicationKey
 });
 
+const unlinkAsync = fsp.unlink;
 class FileController {
   async upload(req, res) {
-    const { filename } = req.file;
+    const { filename, path } = req.file;
     console.log(filename);
 
     try {
@@ -25,7 +30,7 @@ class FileController {
       const {
         data: { uploadUrl, authorizationToken },
       } = await b2.getUploadUrl({
-        bucketId: "28f2e26c706950bf88da091f",
+        bucketId: BUCKET_ID,
       });
 
       const { data } = await b2.uploadFile({
@@ -35,8 +40,10 @@ class FileController {
         data: file,
       });
 
+      await unlinkAsync(path);
+
       return res.send({
-        url: `https://f004.backblazeb2.com/file/curso-nodeJS/${data.fileName}`,
+        url: `${BASE_URL}${data.fileName}`,
       });
     } catch (error) {
       return res.status(400).send({ message: "Falha ao fazer Upload" });
