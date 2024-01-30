@@ -114,6 +114,7 @@ class PostController {
 
   async listMyPosts(req, res) {
     const allPosts = await Posts.findAll({
+      order: [["id", "DESC"]],
       where: {
         author_id: req.userId,
       },
@@ -140,6 +141,7 @@ class PostController {
 
   async listAllPosts(req, res) {
     const allPosts = await Posts.findAll({
+      order: [["id", "DESC"]],
       attributes: ["id", "description", "image", "number_likes"],
       include: [
         {
@@ -150,22 +152,6 @@ class PostController {
         },
       ],
     });
-
-    // if (!allPosts) {
-    //   return res
-    //     .status(400)
-    //     .json({ message: "Falha ao carregar todos os Posts" });
-    // }
-    // const formattedData = [];
-
-    // for (const item of allPosts) {
-    //   formattedData.push({
-    //     id: item.id,
-    //     image: item.image,
-    //     description: item.description,
-    //     number_likes: item.number_likes,
-    //   });
-    // }
 
     res.status(200).json({ data: allPosts });
   }
