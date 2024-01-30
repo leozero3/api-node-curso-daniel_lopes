@@ -1,6 +1,5 @@
-const { verify } = require("jsonwebtoken");
 const Posts = require("../models/posts");
-const { where } = require("sequelize");
+const Users = require("../models/users");
 
 class PostController {
   async create(req, res) {
@@ -137,6 +136,38 @@ class PostController {
     }
 
     res.status(200).json({ data: formattedData });
+  }
+
+  async listAllPosts(req, res) {
+    const allPosts = await Posts.findAll({
+      attributes: ["id", "description", "image", "number_likes"],
+      include: [
+        {
+          model: Users,
+          as: "user",
+          required: true,
+          attributes: ["id", "user_name"],
+        },
+      ],
+    });
+
+    // if (!allPosts) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "Falha ao carregar todos os Posts" });
+    // }
+    // const formattedData = [];
+
+    // for (const item of allPosts) {
+    //   formattedData.push({
+    //     id: item.id,
+    //     image: item.image,
+    //     description: item.description,
+    //     number_likes: item.number_likes,
+    //   });
+    // }
+
+    res.status(200).json({ data: allPosts });
   }
 }
 
