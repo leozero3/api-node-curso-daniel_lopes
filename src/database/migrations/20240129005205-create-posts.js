@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       number_likes: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         defaultValue: 0,
       },
       author_id: {

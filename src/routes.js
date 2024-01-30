@@ -36,5 +36,8 @@ routes.get("/user-profile", UserController.userProfile, (req, res) =>
 routes.post("/upload", upload.single("image"), FileController.upload);
 routes.post("/new-post", schemaValidator(PostSchema), PostController.create);
 routes.delete("/delete-post/:id", PostController.delete);
+routes.put("/update-post/:id", PostController.update);
+routes.put("/add-like/:id", PostController.addLike);
+routes.get("/list-my-posts", PostController.listMyPosts);
 
 module.exports = routes;

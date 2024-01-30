@@ -9,7 +9,7 @@ class Posts extends Model {
 
         description: Sequelize.STRING,
 
-        number_likes: Sequelize.STRING,
+        number_likes: Sequelize.INTEGER,
 
         author_id: Sequelize.INTEGER,
       },
